@@ -2,7 +2,14 @@ import Notifier from "./Notifier.js";
 import Timer from "./Timer.js";
 import Emitter from "./Emitter.js";
 
-import { getRandomMessage } from './notificationMessages.js';
+import { getRandomMessage, removeFromMessagesAvailable } from './notificationMessages.js';
+
+const notify = () => {
+	const message = getRandomMessage();
+	removeFromMessagesAvailable(message);
+	const sendNotication = Notifier.notify(message);
+	sendNotication();
+}
 
 const App = {
 	async start(){
@@ -11,10 +18,8 @@ const App = {
 		try {
 			await Notifier.init();
 
-			Emitter.on('countdown-start', () => {
-				const message = getRandomMessage();
-				Notifier.notify(message);
-			});
+			Emitter.on('countdown-start', notify);
+
 			Emitter.on('countdown-end', () => Timer.init(time));
 
 			Timer.init(time);
