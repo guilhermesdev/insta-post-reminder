@@ -1,9 +1,5 @@
 const Emitter = {
-	events: {
-		// click(){
-		// 	console.log('Cliquei');
-		// }
-	},
+	events: {},
 	on(event, callback){
 		Emitter.events[event] = Emitter.events[event] || [];
 		Emitter.events[event].push(callback);
@@ -18,11 +14,5 @@ const Emitter = {
 		});
 	}
 };
-
-Emitter.on('click', () => console.log('Cliquei'));
-Emitter.on('click', () => console.log('Cliquei de novo'));
-Emitter.on('click', () => console.log('Terceiro clique'));
-
-Emitter.emit('click');
 
 export default Emitter;

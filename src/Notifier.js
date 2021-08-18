@@ -6,7 +6,7 @@ const Notifier = {
 		}
 	},
 	notify({ title, body, icon}){
-		return () => new Notification(title, {
+		new Notification(title, {
 			body,
 			icon
 		});

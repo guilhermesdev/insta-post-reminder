@@ -2,10 +2,7 @@ import Notifier from "./Notifier.js";
 import Timer from "./Timer.js";
 import Emitter from "./Emitter.js";
 
-const notify = Notifier.notify({
-	title: 'Hora de postar',
-	body: 'Crie conteúdo para ajudar a comunidade'
-});
+import { getRandomMessage } from './notificationMessages.js';
 
 const App = {
 	async start(){
@@ -14,7 +11,10 @@ const App = {
 		try {
 			await Notifier.init();
 
-			Emitter.on('countdown-start', notify);
+			Emitter.on('countdown-start', () => {
+				const message = getRandomMessage();
+				Notifier.notify(message);
+			});
 			Emitter.on('countdown-end', () => Timer.init(time));
 
 			Timer.init(time);
