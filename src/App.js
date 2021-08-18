@@ -13,16 +13,13 @@ const notify = () => {
 
 const App = {
 	async start(){
-		const time = 5 * 60;
-
 		try {
 			await Notifier.init();
 
 			Emitter.on('countdown-start', notify);
+			Emitter.on('countdown-end', Timer.init);
 
-			Emitter.on('countdown-end', () => Timer.init(time));
-
-			Timer.init(time);
+			Timer.init();
 		} catch (error) {
 			console.error(error.message);
 		}

@@ -4,7 +4,7 @@ import View from "./View.js";
 View.render();
 
 const Timer = {
-	initialTime: 0,
+	initialTime: 60 * 60,
 	currentTime: 0,
 	interval: null,
 	timeToMinutes(time = Timer.currentTime) {
@@ -13,11 +13,10 @@ const Timer = {
 	timeToSeconds(time = Timer.currentTime) {
 		return Math.floor(time % 60).toString().padStart(2, '0');
 	},
-	init(time = 60 * 60){
+	init(time){
 		Emitter.emit('countdown-start');
 
-		Timer.initialTime = time;
-		Timer.currentTime = Timer.initialTime;
+		Timer.currentTime = time || Timer.initialTime;
 		Timer.interval = setInterval(Timer.countdown, 1000);
 	},
 	countdown(){
